@@ -70,10 +70,10 @@ with open("input") as f:
 
 tilemap = {
     0: " ", # empty
-    1: "$", # wall
-    2: "#", # block
-    3: "-", # horizontal paddle
-    4: "*", # ball
+    1: "\033[34m█\033[0m", # wall
+    2: "\033[37m■\033[0m", # block
+    3: "\033[93m▀\033[0m", # horizontal paddle
+    4: "\033[31;1m●\033[0m", # ball
 }
 
 intcode[0] = 2 # 2 quarters
@@ -93,7 +93,7 @@ try:
             x = computer.send(inp)
             sys.stdout.write(f"\033[1;1H")
             sys.stdout.flush()
-            time.sleep(0.01)
+            time.sleep(1/120)
         else:
             x = first
 
