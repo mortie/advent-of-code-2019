@@ -68,7 +68,7 @@ def eval(intcode):
             raise Exception("Unknown op code: "+str(opr)+" (in opstr "+opstr+")")
 
 with open("input") as f:
-    intcode = list(map(lambda x: int(x), f.read().split(",")))
+    intcode = list(map(lambda x: int(x), f.readline().split(",")))
 
 tiles = {
     "nothing": "\033[90m⌽",
@@ -164,13 +164,15 @@ while rob.move("right") != 0: pass
 startpos = rob.pos
 
 # Now that we're at a wall, we can use the "keep right" algorithm for solving the maze
+moved = False
 while True:
     if rob.move(rob.direction) == 0: # wall
         rob.direction = rob.turned_left()
     else: # not a wall
         if rob.move(rob.turned_right()) != 0: # There's no wall to our right
             rob.direction = rob.turned_right()
-    if rob.pos == startpos:
+            moved = True
+    if moved and rob.pos == startpos:
         break
 
 rob.draw(grid)
