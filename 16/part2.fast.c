@@ -32,6 +32,7 @@ void phase(int *input, int *output, int begin, int length, int totallength, int 
 void fft_parallel(int *input, int *output, int length, int count, int nthreads) {
 	for (int i = 0; i < count; ++i) {
 		printf("%i/%i...\n", i + 1, count);
+
 		#pragma omp parallel for
 		for (int th = 0; th < nthreads; ++th) {
 			int begin = th * (length / nthreads);
@@ -77,7 +78,7 @@ int main() {
 
 	int *output = malloc(msglength * sizeof(*input));
 
-	fft_parallel(input, output, msglength, 100, 8);
+	fft_parallel(input, output, msglength, 100, 10);
 	for (int i = 0; i < 8; ++i)
 		printf("%i ", output[i]);
 	printf("\n");
